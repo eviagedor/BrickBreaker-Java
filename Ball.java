@@ -5,8 +5,8 @@ import java.awt.Graphics;
 
 public class Ball extends GameObject {
 
-	public Ball(ObjectID id, int x, int y) {
-		super(id, x, y);
+	public Ball(int x, int y) {
+		super(ObjectID.BALL, x, y);
 		setVelocityX(3);
 		setVelocityY(3);
 	}
