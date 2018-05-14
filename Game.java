@@ -5,11 +5,6 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
 
-import game_objects.Ball;
-import game_objects.GameObject;
-import game_objects.ObjectID;
-import game_objects.Paddle;
-
 public class Game extends Canvas implements Runnable {
 
 	public static void main(String[] args) {

@@ -2,7 +2,6 @@ package game;
 
 import java.awt.Graphics;
 import java.util.LinkedList;
-import game_objects.*;
 
 public class ObjectHandler {
 

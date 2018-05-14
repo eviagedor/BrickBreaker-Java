@@ -3,9 +3,6 @@ package game;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
-import game_objects.GameObject;
-import game_objects.ObjectID;
-
 public class KeyInput extends KeyAdapter {
 
 	private GameObject object;
