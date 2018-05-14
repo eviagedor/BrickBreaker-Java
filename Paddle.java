@@ -5,8 +5,8 @@ import java.awt.Graphics;
 
 public class Paddle extends GameObject {
 
-	public Paddle(ObjectID id, int x, int y) {
-		super(id, x, y);
+	public Paddle(int x, int y) {
+		super(ObjectID.PADDLE, x, y); // we know this is paddle, so assign Paddle ID
 	}
 
 	@Override
