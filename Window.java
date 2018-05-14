@@ -17,9 +17,8 @@ public class Window extends Canvas {
 		frame.setPreferredSize(new Dimension(width, height));
 		frame.setMaximumSize(new Dimension(width, height));
 		frame.setMinimumSize(new Dimension(width, height));
-		frame.setPreferredSize(new Dimension(width, height));
-		frame.setResizable(false);
-		frame.setLocationRelativeTo(null);
+		frame.setResizable(false); // size is static
+		frame.setLocationRelativeTo(null); // displays in the middle of the screen
 		
 		// add the game to the JFrame container and display
 		frame.add(game);
@@ -28,5 +27,4 @@ public class Window extends Canvas {
 		// run
 		game.start();
 	}
-
 }
