@@ -19,11 +19,11 @@ public class Game extends Canvas implements Runnable {
 	private Thread thread;
 	private boolean running = false; // is the thread running?
 
-	private ObjectHandler handler = new ObjectHandler(); // create a singleton for handling all game objects
+	private ObjectHandler handler = ObjectHandler.getInstance(); // create a singleton for handling all game objects
 
 	public Game() {
-		GameObject player = new Paddle(ObjectID.PADDLE, WIDTH / 2, HEIGHT - 100);
-		GameObject ball = new Ball(ObjectID.BALL, WIDTH / 2, HEIGHT / 2);
+		GameObject player = new Paddle(WIDTH / 2, HEIGHT - 100);
+		GameObject ball = new Ball(WIDTH / 2, HEIGHT / 2);
 
 		this.addKeyListener(new KeyInput(player));
 
