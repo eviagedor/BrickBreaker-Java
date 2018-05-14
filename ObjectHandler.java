@@ -5,8 +5,15 @@ import java.util.LinkedList;
 
 public class ObjectHandler {
 
+	private static final ObjectHandler instance = new ObjectHandler(); // Thread-safe
 	private LinkedList<GameObject> objectList = new LinkedList<>();
-
+	
+	private ObjectHandler() {}
+	
+	public static ObjectHandler getInstance() {
+		return instance;
+	}
+	
 	public void tick() {
 		for (int i = 0; i < objectList.size(); i++) {
 			GameObject object = objectList.get(i);
