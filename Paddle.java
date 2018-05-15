@@ -2,20 +2,20 @@ package game;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Rectangle;
 
 public class Paddle extends GameObject {
-
+	
 	public Paddle(int x, int y) {
 		super(ObjectID.PADDLE, x, y); // we know this is paddle, so assign Paddle ID
 	}
-
+	
 	@Override
 	public void tick() {
 		x += velocityX;
 		
-		if(x <= 0 || x >= 325 - 80) {
+		if(x <= 0 || x >= Game.WIDTH - 80) {
 			x -= velocityX;
-			//System.out.println("NOT MOVING");
 		} 
 	}
 
@@ -23,5 +23,10 @@ public class Paddle extends GameObject {
 	public void render(Graphics g) {
 		g.setColor(Color.white);
 		g.fillRect(x, y, 64, 10);
+	}
+
+	@Override
+	public Rectangle getBounds() {
+		return new Rectangle(x, y, 64, 10);
 	}
 }
