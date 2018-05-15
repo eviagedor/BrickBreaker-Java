@@ -13,24 +13,24 @@ public class Game extends Canvas implements Runnable {
 
 	private static final long serialVersionUID = -8056194281387030261L;
 
-	private static final int WIDTH = 325;
-	private static final int HEIGHT = 500;
+	protected static final int WIDTH = 325;
+	protected static final int HEIGHT = 500;
 
 	private Thread thread;
 	private boolean running = false; // is the thread running?
 
-	private ObjectHandler handler = ObjectHandler.getInstance(); // create a singleton for handling all game objects
+	private ObjectHandler handler = ObjectHandler.getInstance(); // handles paddle & ball 
 
 	public Game() {
-		GameObject player = new Paddle(WIDTH / 2, HEIGHT - 100);
-		GameObject ball = new Ball(WIDTH / 2, HEIGHT / 2);
-
-		this.addKeyListener(new KeyInput(player));
+		GameObject player = new Paddle(WIDTH / 2, HEIGHT - 75);
+		GameObject ball = new Ball(WIDTH / 2, HEIGHT / 3, handler);
+		
+		this.addKeyListener(new PaddleCommand(player));
 
 		new Window(WIDTH, HEIGHT, "This is a game", this);
 
-		handler.addObject(player);
-		handler.addObject(ball);
+		handler.addObject(player); // at index 0 of handler
+		handler.addObject(ball); // at index 1 of handler
 	}
 
 	/**
