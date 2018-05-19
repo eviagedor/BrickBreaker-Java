@@ -13,11 +13,11 @@ public class Game extends Canvas implements Runnable {
 
 	private static final long serialVersionUID = -8056194281387030261L;
 
-	private final int WIDTH = 500;
+	private final int WIDTH = 265;
 	private final int HEIGHT = 500;
 	
-	private final int ROW = 10;
-	private final int COL = 5;
+	private final int ROW = 5;
+	private final int COL = 8;
 	
 	private Thread thread;
 	private boolean running = false; // is the thread running?
