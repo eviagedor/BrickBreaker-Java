@@ -13,10 +13,6 @@ public class Paddle extends GameObject {
 	@Override
 	public void tick() {
 		x += velocityX;
-		
-		if(x <= 0 || x >= Game.WIDTH - 80) {
-			x -= velocityX;
-		} 
 	}
 
 	@Override
