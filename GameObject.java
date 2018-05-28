@@ -5,16 +5,18 @@ import java.awt.Rectangle;
 
 public abstract class GameObject {
 
-	protected ObjectID id;
 	protected int x;
 	protected int y;
+	protected int height;
+	protected int width;
 	protected int velocityX;
 	protected int velocityY;
 
-	public GameObject(ObjectID id, int x, int y) {
-		this.id = id;
+	public GameObject(int x, int y, int width, int height) {
 		this.x = x;
 		this.y = y;
+		this.width = width;
+		this.height = height;
 	}
 
 	public abstract void tick();
@@ -22,14 +24,6 @@ public abstract class GameObject {
 	public abstract void render(Graphics g);
 
 	public abstract Rectangle getBounds();
-
-	public ObjectID getId() {
-		return id;
-	}
-
-	public void setId(ObjectID id) {
-		this.id = id;
-	}
 
 	public int getX() {
 		return x;
@@ -47,6 +41,22 @@ public abstract class GameObject {
 		this.y = y;
 	}
 
+	public int getWidth() {
+		return width;
+	}
+	
+	public void setWidth(int width) {
+		this.width = width;
+	}
+	
+	public int getHeight() {
+		return height;
+	}
+	
+	public void setHeight(int height) {
+		this.height = height;
+	}
+	
 	public int getVelocityX() {
 		return velocityX;
 	}
