@@ -13,15 +13,26 @@ public class Game extends Canvas implements Runnable {
 
 	private static final long serialVersionUID = -8056194281387030261L;
 
-	private final int WIDTH = 265;
-	private final int HEIGHT = 500;
+	private final int WINDOW_WIDTH = 265;
+	private final int WINDOW_HEIGHT = 500;
+	
+	private final int PADDLE_WIDTH = 64;
+	private final int PADDLE_HEIGHT = 10;
+	
+	private final int BALL_WIDTH = 16;
+	private final int BALL_HEIGHT = 16;
+	
+	private final int BRICK_WIDTH = 45;
+	private final int BRICK_HEIGHT = 20;
 	
 	private final int ROW = 5;
 	private final int COL = 8;
 	
 	private Thread thread;
 	private boolean running = false; // is the thread running?
-
+	
+	private int score = 0;
+	
 	private Paddle player;
 	private Ball ball;
 	private Brick[][] brick = new Brick[ROW][COL];
@@ -32,12 +43,12 @@ public class Game extends Canvas implements Runnable {
 
 	public Game() {
 		generateBricks();
-		player = new Paddle(WIDTH / 2, HEIGHT - 75);
-		ball = new Ball(WIDTH / 2, HEIGHT / 3);
+		player = new Paddle(WINDOW_WIDTH / 2, WINDOW_HEIGHT - 75, PADDLE_WIDTH, PADDLE_HEIGHT);
+		ball = new Ball(WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2, BALL_WIDTH, BALL_HEIGHT);
 		
-		this.addKeyListener(new KeyInput(player));
+		this.addKeyListener(new PaddleInput(player));
 
-		new Window(WIDTH, HEIGHT, "This is a game", this);
+		new Window(WINDOW_WIDTH, WINDOW_HEIGHT, "This is a game", this);
 
 		addToHandler(player);
 		addToHandler(ball);
@@ -46,7 +57,7 @@ public class Game extends Canvas implements Runnable {
 	public void generateBricks() {
 		for(int i = 0; i < ROW; i++) {
 			for(int j = 0; j < COL; j++) {
-				brick[i][j] = new Brick((i * 50), ((j * 25) + (25 / 2)));
+				brick[i][j] = new Brick(i * 50, (j * 25) + (25 / 2), BRICK_WIDTH, BRICK_HEIGHT);
 				addToHandler(brick[i][j]);
 			}
 		}
@@ -57,17 +68,17 @@ public class Game extends Canvas implements Runnable {
 	}
 	
 	public void collisionWall() {
-		if (ball.x < 0 || ball.x > WIDTH - 32) {
+		if (ball.x < 0 || ball.x > WINDOW_WIDTH - 32) {
 			ball.velocityX *= -1; // reverse the direction
 			// System.out.println("Hit left or right");
 		}
 
-		if (ball.y < 0 || ball.y > HEIGHT - 64) {
+		if (ball.y < 0 || ball.y > WINDOW_HEIGHT - 64) {
 			ball.velocityY *= -1; // reverse the direction
 			// System.out.println("Hit top");
 		}
 		
-		if(player.x < 0 || player.x > WIDTH - 80) {
+		if(player.x < 0 || player.x > WINDOW_WIDTH - 80) {
 			player.x -= player.velocityX;
 		} 
 	}
@@ -82,7 +93,11 @@ public class Game extends Canvas implements Runnable {
 	public void collisionBrick() {
 		for(int i = 0; i < ROW; i++) {
 			for(int j = 0; j < COL; j++) {
-				brick[i][j].hit(ball);
+				if(brick[i][j].hit(ball) == true) {
+					ball.velocityX *= -1;
+					ball.velocityY *= -1;
+					System.out.println(++score);
+				}
 			}
 		}
 	}
@@ -109,7 +124,7 @@ public class Game extends Canvas implements Runnable {
 	}
 
 	/**
-	 * Game-loop algorithm used by Notch, creator of Minecraft
+	 * Game-loop algorithm. 
 	 * Removed logging of FPS.
 	 */
 	@Override
@@ -120,17 +135,20 @@ public class Game extends Canvas implements Runnable {
 		double ns = 1000000000 / amountOfTicks;
 		double delta = 0;
 
-		// loop will update the frames and draw objects onto the canvas
+		// Can the game keep up with our (human) time?
 		while (running) {
 			
-			// Update phase
-			long now = System.nanoTime();
+			/**
+			 * Update phase
+			 */
+			long now = System.nanoTime(); // our time
 
+			// ensure that the game maintains steady frames
 			delta += (now - lastTime) / ns;
-			lastTime = now;
+			lastTime = now; // game time is our time
 
 			while (delta >= 1) {
-				tick();
+				tick(); // update the objects
 				collisionWall();
 				collisionPaddle();
 				collisionBrick();
@@ -160,11 +178,19 @@ public class Game extends Canvas implements Runnable {
 		Graphics g = buff_st.getDrawGraphics();
 
 		g.setColor(Color.black);
-		g.fillRect(0, 0, WIDTH, HEIGHT);
+		g.fillRect(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT);
 
 		handler.render(g);
 
 		g.dispose();
 		buff_st.show();
+	}
+
+	public int getScore() {
+		return score;
+	}
+
+	public void setScore(int score) {
+		this.score = score;
 	}
 }
