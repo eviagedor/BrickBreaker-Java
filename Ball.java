@@ -5,9 +5,9 @@ import java.awt.Graphics;
 import java.awt.Rectangle;
 
 public class Ball extends GameObject {
-
-	public Ball(int x, int y) {
-		super(ObjectID.BALL, x, y);
+	
+	public Ball(int x, int y, int width, int height) {
+		super(x, y, width, height);
 		setVelocityX(3);
 		setVelocityY(3);
 	}
@@ -21,11 +21,11 @@ public class Ball extends GameObject {
 	@Override
 	public void render(Graphics g) {
 		g.setColor(Color.WHITE);
-		g.fillOval(x, y, 16, 16);
+		g.fillOval(x, y, width, height);
 	}
 
 	@Override
 	public Rectangle getBounds() {
-		return new Rectangle(x, y, 16, 16);
+		return new Rectangle(x, y, width, height);
 	}
 }
